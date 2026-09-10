@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useRef, useState } from 'react';
+import { BLUR_DATA_URL } from '@/lib/blur';
 
 /**
  * A media plate that shows a poster image and, if a video src is provided AND
@@ -35,6 +36,10 @@ export default function MediaFeature({
           alt={posterAlt}
           fill
           sizes="(max-width: 768px) 90vw, 55vw"
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
+          quality={72}
           className={`object-cover transition-opacity duration-500 ${playing ? 'opacity-0' : 'opacity-100'}`}
         />
         {showVideo && (

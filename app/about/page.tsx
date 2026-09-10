@@ -4,6 +4,7 @@ import PageHeader from '@/components/layout/PageHeader';
 import Reveal from '@/components/primitives/Reveal';
 import Button from '@/components/primitives/Button';
 import { BRAND, CATALOGUE_COUNT } from '@/lib/products';
+import { BLUR_DATA_URL } from '@/lib/blur';
 
 export const metadata: Metadata = {
   title: 'About — 23 Years of Miniature Craft',
@@ -61,6 +62,9 @@ export default function AboutPage() {
                   alt="A detailed model railway layout inside the Aditya Miniatures workshop, Bangalore"
                   fill
                   sizes="(max-width: 768px) 90vw, 40vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  quality={75}
                   className="object-cover"
                 />
               </div>

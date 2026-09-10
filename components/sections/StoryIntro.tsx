@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import Reveal from '@/components/primitives/Reveal';
 import Button from '@/components/primitives/Button';
+import { BLUR_DATA_URL } from '@/lib/blur';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -130,6 +131,9 @@ export default function StoryIntro() {
                   alt="Inside the Aditya Miniatures workshop — a detailed model railway layout"
                   fill
                   sizes="(max-width: 768px) 90vw, 40vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  quality={75}
                   className="object-cover"
                 />
               </div>

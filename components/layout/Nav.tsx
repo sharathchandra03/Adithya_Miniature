@@ -46,7 +46,15 @@ export default function Nav() {
             scrolled || open ? 'shadow-soft' : 'shadow-none'
           }`}
         >
-          <Link href="/" aria-label={`${BRAND.name} home`} className="flex items-center gap-2.5">
+          <Link
+            href="/"
+            aria-label={`${BRAND.name} home`}
+            onClick={() => {
+              // If already on home, the route won't change — scroll to top ourselves.
+              if (pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex items-center gap-2.5"
+          >
             <BrassMark />
             <span className="font-display text-base leading-none tracking-tight">
               Aditya <span className="text-brass">Miniatures</span>

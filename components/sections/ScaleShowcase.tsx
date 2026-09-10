@@ -5,12 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SCALES } from '@/lib/products';
 import Reveal from '@/components/primitives/Reveal';
+import { BLUR_DATA_URL } from '@/lib/blur';
 
 const SCALE_IMAGES: Record<string, string> = {
   n: '/assets/images/n-scale/locomotives/2.png',
   ho: '/assets/images/ho-scale/3.png',
   g: '/assets/images/g-scale/6.jpg',
-  z: '/assets/images/home-img/slide/2.png',
+  z: '/assets/images/home-img/slide/2.jpg',
 };
 
 export default function ScaleShowcase() {
@@ -78,6 +79,9 @@ export default function ScaleShowcase() {
                     alt={`${s.name} model by Aditya Miniatures`}
                     fill
                     sizes="(max-width: 768px) 90vw, 45vw"
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
+                    quality={75}
                     className={`object-cover transition-opacity duration-700 ease-expo ${
                       active === i ? 'opacity-100' : 'opacity-0'
                     }`}

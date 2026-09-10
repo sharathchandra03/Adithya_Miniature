@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Reveal from '@/components/primitives/Reveal';
 import { CATEGORIES, PRODUCTS } from '@/lib/products';
+import { BLUR_DATA_URL } from '@/lib/blur';
 
 // Pick one representative image per category from real assets.
 const COVER: Record<string, string> = {
@@ -46,6 +47,10 @@ export default function CategoryStrip() {
                         alt={`${c.name} by Aditya Miniatures`}
                         fill
                         sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+                        loading="lazy"
+                        placeholder="blur"
+                        blurDataURL={BLUR_DATA_URL}
+                        quality={72}
                         className="object-cover transition-transform duration-700 ease-expo group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
