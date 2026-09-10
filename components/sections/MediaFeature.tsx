@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
+import SmartImage from '@/components/media/SmartImage';
 import { useRef, useState } from 'react';
-import { BLUR_DATA_URL } from '@/lib/blur';
+
 
 /**
  * A media plate that shows a poster image and, if a video src is provided AND
@@ -31,16 +31,12 @@ export default function MediaFeature({
   return (
     <div className={dark ? 'plate-dark' : 'plate'}>
       <div className="plate-core relative aspect-video">
-        <Image
+        <SmartImage
           src={poster}
           alt={posterAlt}
-          fill
           sizes="(max-width: 768px) 90vw, 55vw"
-          loading="lazy"
-          placeholder="blur"
-          blurDataURL={BLUR_DATA_URL}
-          quality={72}
-          className={`object-cover transition-opacity duration-500 ${playing ? 'opacity-0' : 'opacity-100'}`}
+          priority="lazy"
+          className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${playing ? 'opacity-0' : 'opacity-100'}`}
         />
         {showVideo && (
           <video

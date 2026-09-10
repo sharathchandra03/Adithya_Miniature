@@ -1,16 +1,16 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Image from 'next/image';
+import SmartImage from '@/components/media/SmartImage';
 import Link from 'next/link';
 import { SCALES } from '@/lib/products';
 import Reveal from '@/components/primitives/Reveal';
-import { BLUR_DATA_URL } from '@/lib/blur';
+
 
 const SCALE_IMAGES: Record<string, string> = {
   n: '/assets/images/n-scale/locomotives/2.png',
   ho: '/assets/images/ho-scale/3.png',
-  g: '/assets/images/g-scale/6.jpg',
+  g: '/assets/images/g-scale/12.jpg',
   z: '/assets/images/home-img/slide/2.jpg',
 };
 
@@ -73,17 +73,14 @@ export default function ScaleShowcase() {
             <div className="plate-dark">
               <div className="plate-core relative aspect-[4/3]">
                 {SCALES.map((s, i) => (
-                  <Image
+                  <SmartImage
                     key={s.id}
                     src={SCALE_IMAGES[s.id]}
                     alt={`${s.name} model by Aditya Miniatures`}
-                    fill
                     sizes="(max-width: 768px) 90vw, 45vw"
-                    placeholder="blur"
-                    blurDataURL={BLUR_DATA_URL}
-                    quality={75}
-                    className={`object-cover transition-opacity duration-700 ease-expo ${
-                      active === i ? 'opacity-100' : 'opacity-0'
+                    priority="eager"
+                    className={`absolute inset-0 h-full w-full transition-opacity duration-700 ease-expo ${
+                      active === i ? 'opacity-100 z-[1]' : 'opacity-0'
                     }`}
                   />
                 ))}

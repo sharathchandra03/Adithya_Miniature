@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
+import SmartImage from '@/components/media/SmartImage';
 import PageHeader from '@/components/layout/PageHeader';
 import Reveal from '@/components/primitives/Reveal';
 import Button from '@/components/primitives/Button';
 import { BRAND, CATALOGUE_COUNT } from '@/lib/products';
-import { BLUR_DATA_URL } from '@/lib/blur';
+
 
 export const metadata: Metadata = {
   title: 'About — 23 Years of Miniature Craft',
@@ -57,15 +57,12 @@ export default function AboutPage() {
           <div className="md:col-span-5 md:col-start-8">
             <Reveal className="plate">
               <div className="plate-core relative aspect-[4/5]">
-                <Image
+                <SmartImage
                   src="/assets/images/home-img/about.jpg"
                   alt="A detailed model railway layout inside the Aditya Miniatures workshop, Bangalore"
-                  fill
                   sizes="(max-width: 768px) 90vw, 40vw"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  quality={75}
-                  className="object-cover"
+                  priority="eager"
+                  className="absolute inset-0 h-full w-full"
                 />
               </div>
             </Reveal>

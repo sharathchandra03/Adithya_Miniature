@@ -2,7 +2,26 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    formats: ['image/avif', 'image/webp'],
+    // All images are pre-optimized at build time (scripts/build-images.mjs) and
+    // served as static AVIF/WebP variants via <picture srcset>. We disable the
+    // runtime optimizer entirely so there is ZERO cold-start transcode — the
+    // root cause of the previous multi-second image waits.
+    unoptimized: true,
+  },
+  async headers() {
+    return [
+      {
+        // Pre-generated, content-addressed derivatives never change for a given
+        // build -> cache them hard (1 year, immutable).
+        source: '/assets/opt/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
+        // Source images / posters — long cache, still revalidatable.
+        source: '/assets/images/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
+      },
+    ];
   },
   async redirects() {
     const scale = (s, files) =>

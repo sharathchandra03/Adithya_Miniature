@@ -1,13 +1,12 @@
 'use client';
 
 import { useRef } from 'react';
-import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import Reveal from '@/components/primitives/Reveal';
 import Button from '@/components/primitives/Button';
-import { BLUR_DATA_URL } from '@/lib/blur';
+import SmartImage from '@/components/media/SmartImage';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -126,15 +125,12 @@ export default function StoryIntro() {
           <Reveal className="plate">
             <div className="plate-core relative aspect-[4/5] overflow-hidden">
               <div data-parallax className="absolute inset-0 scale-110">
-                <Image
+                <SmartImage
                   src="/assets/images/home-img/about.jpg"
                   alt="Inside the Aditya Miniatures workshop — a detailed model railway layout"
-                  fill
                   sizes="(max-width: 768px) 90vw, 40vw"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  quality={75}
-                  className="object-cover"
+                  priority="eager"
+                  className="absolute inset-0 h-full w-full"
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />

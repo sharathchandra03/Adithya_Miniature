@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
+import SmartImage from '@/components/media/SmartImage';
 import PageHeader from '@/components/layout/PageHeader';
 import MediaFeature from '@/components/sections/MediaFeature';
 import Reveal from '@/components/primitives/Reveal';
@@ -109,14 +109,14 @@ export default function SolutionsPage() {
             {GALLERY.map((src, i) => (
               <Reveal key={src} delay={(i % 3) * 60}>
                 <div className="plate break-inside-avoid">
-                  <div className="plate-core relative">
-                    <Image
+                  <div className="plate-core relative overflow-hidden">
+                    <SmartImage
                       src={src}
                       alt={`Custom layout and scenery project ${i + 1} by Aditya Miniatures`}
-                      width={800}
-                      height={i % 3 === 0 ? 1000 : 600}
                       sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-                      className="h-auto w-full object-cover"
+                      priority="lazy"
+                      reserveRatio
+                      className="w-full"
                     />
                   </div>
                 </div>

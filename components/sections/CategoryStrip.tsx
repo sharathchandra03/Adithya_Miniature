@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import SmartImage from '@/components/media/SmartImage';
 import Reveal from '@/components/primitives/Reveal';
 import { CATEGORIES, PRODUCTS } from '@/lib/products';
-import { BLUR_DATA_URL } from '@/lib/blur';
+
 
 // Pick one representative image per category from real assets.
 const COVER: Record<string, string> = {
@@ -42,16 +42,13 @@ export default function CategoryStrip() {
                 <Link href="/collection" className="group block">
                   <div className="plate transition-transform duration-500 ease-expo group-hover:-translate-y-1">
                     <div className="plate-core relative aspect-[16/10]">
-                      <Image
+                      <SmartImage
                         src={COVER[c.id]}
                         alt={`${c.name} by Aditya Miniatures`}
-                        fill
                         sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-                        loading="lazy"
-                        placeholder="blur"
-                        blurDataURL={BLUR_DATA_URL}
-                        quality={72}
-                        className="object-cover transition-transform duration-700 ease-expo group-hover:scale-105"
+                        priority="lazy"
+                        className="absolute inset-0 h-full w-full"
+                        imgClassName="transition-transform duration-700 ease-expo group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">

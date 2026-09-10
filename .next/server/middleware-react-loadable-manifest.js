@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components/three/HeroCanvas.tsx -> ./TrackScene\":{\"id\":\"components/three/HeroCanvas.tsx -> ./TrackScene\",\"files\":[\"static/chunks/_app-pages-browser_components_three_TrackScene_tsx.js\"]}}"

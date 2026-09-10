@@ -6,10 +6,26 @@ import SolutionsFeature from '@/components/sections/SolutionsFeature';
 import CategoryStrip from '@/components/sections/CategoryStrip';
 import CtaBand from '@/components/sections/CtaBand';
 import { BRAND, CATALOGUE_COUNT } from '@/lib/products';
+import { preloadLinkProps } from '@/lib/images';
+
+const heroPreload = preloadLinkProps('/assets/images/home-img/slide/2.jpg', '100vw');
 
 export default function Home() {
   return (
     <>
+      {heroPreload && (
+        // Preload the LCP hero backdrop (AVIF, responsive) so it starts before hydration.
+        // eslint-disable-next-line @next/next/no-head-element
+        <link
+          rel="preload"
+          as="image"
+          href={heroPreload.href}
+          // @ts-expect-error responsive preload attrs are valid HTML
+          imagesrcset={heroPreload.imageSrcSet}
+          imagesizes={heroPreload.imageSizes}
+          fetchPriority="high"
+        />
+      )}
       <Hero />
       <StoryIntro />
       <MarqueeBand />

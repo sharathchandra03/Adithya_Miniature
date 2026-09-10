@@ -1,9 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import type { Product } from '@/lib/products';
 import { SCALES } from '@/lib/products';
-import { BLUR_DATA_URL } from '@/lib/blur';
+import SmartImage from '@/components/media/SmartImage';
+import { preloadDetail } from '@/lib/preload';
 
 export default function ProductCard({
   product,
@@ -16,34 +16,37 @@ export default function ProductCard({
 }) {
   const scale = product.scale ? SCALES.find((s) => s.id === product.scale) : null;
 
+  // Preload the detail-sized image on intent (hover / focus / touchstart)
+  // so the modal appears instantly on click.
+  const warm = () => preloadDetail(product.image, 960);
+
   return (
     <article className="group">
       <button
         type="button"
         onClick={() => onOpen(product)}
+        onMouseEnter={warm}
+        onFocus={warm}
+        onTouchStart={warm}
         aria-label={`View details for ${product.title}`}
         className="block w-full text-left"
       >
         <div className="plate transition-transform duration-500 ease-expo group-hover:-translate-y-1">
           <div className="plate-core relative aspect-[3/2]">
-            <Image
+            <SmartImage
               src={product.image}
               alt={product.alt}
-              fill
               sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-              priority={priority}
-              loading={priority ? undefined : 'lazy'}
-              placeholder="blur"
-              blurDataURL={BLUR_DATA_URL}
-              quality={72}
-              className="object-cover transition-transform duration-700 ease-expo group-hover:scale-[1.05]"
+              priority={priority ? 'critical' : 'lazy'}
+              className="absolute inset-0 h-full w-full"
+              imgClassName="transition-transform duration-700 ease-expo group-hover:scale-[1.05]"
             />
             {/* corner ticks */}
-            <span className="absolute left-3 top-3 h-3 w-3 border-l border-t border-brass/70" aria-hidden="true" />
-            <span className="absolute bottom-3 right-3 h-3 w-3 border-b border-r border-brass/70" aria-hidden="true" />
+            <span className="pointer-events-none absolute left-3 top-3 z-10 h-3 w-3 border-l border-t border-brass/70" aria-hidden="true" />
+            <span className="pointer-events-none absolute bottom-3 right-3 z-10 h-3 w-3 border-b border-r border-brass/70" aria-hidden="true" />
 
             {/* hover reveal: "view" affordance */}
-            <div className="absolute inset-0 flex items-end justify-between bg-gradient-to-t from-ink/50 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+            <div className="pointer-events-none absolute inset-0 z-10 flex items-end justify-between bg-gradient-to-t from-ink/50 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
               <span className="rounded-full bg-paper/90 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink">
                 View details
               </span>

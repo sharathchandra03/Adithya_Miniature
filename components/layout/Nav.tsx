@@ -69,7 +69,7 @@ export default function Nav() {
                 className={`link-underline font-mono text-[11px] uppercase tracking-[0.18em] transition-colors ${
                   pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href))
                     ? 'text-brass'
-                    : 'text-ink/70 hover:text-ink'
+                    : 'text-ink/90 hover:text-ink'
                 }`}
               >
                 {l.label}
